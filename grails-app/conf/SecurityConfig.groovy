@@ -20,7 +20,7 @@ security {
 		/job/apply/**=ROLE_EMPLOYEE
 		/job/cancel/**=ROLE_EMPLOYEE
 		/job/delete/**=ROLE_COMPANY
-		/job/closeOpen/**=ROLE_COMPANY
+		/job/closeopen/**=ROLE_COMPANY
 		/profile/**=IS_AUTHENTICATED_FULLY
 		/**=IS_AUTHENTICATED_ANONYMOUSLY
 	"""
