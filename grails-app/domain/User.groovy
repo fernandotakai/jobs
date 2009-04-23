@@ -31,6 +31,7 @@ class User {
 	
 	static mapping = {
 		cache true
+		profile cache: true
 	}
 	
 	boolean equals(other){
