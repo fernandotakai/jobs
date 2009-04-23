@@ -3,6 +3,7 @@ class Profile {
 	static belongsTo = [user:User]
 	
 	String phone
+	boolean phoneShow = false
 	String address
 	
 	static constraints = {

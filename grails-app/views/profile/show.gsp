@@ -11,6 +11,10 @@
 			<p><strong>Email:</strong> ${profile.user.email}</p>
 		</g:if>
 		
+		<g:if test="${profile.phoneShow}">
+			<p><strong>Phone:</strong> ${profile.phone}</p>
+		</g:if>
+				
 		<g:if test="${profile.user.type == 'employee'}">
 			<g:render template="show_employee_profile" model="[user:profile.user, profile:profile]"  />
 		</g:if>
