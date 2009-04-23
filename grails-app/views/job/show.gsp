@@ -7,6 +7,9 @@
 	</head>
 
 	<body>
+		<g:if test="${flash.message}">
+			<div class="notice">${flash.message}</div>
+		</g:if>
 		<p><strong>Title: </strong>${job.title.encodeAsHTML()}</p>
 		<p><strong>Description: </strong>${job.description.encodeAsHTML()}</p>
 		<p><strong>From: </strong><g:link action="show" controller="profile" id="${job?.company?.id}">${job.company.userRealName.encodeAsHTML()}		</g:link></p>
@@ -16,8 +19,14 @@
 				<div class="buttons">
 					<g:hiddenField name="id" value="${job.id}" />
 					<br/>
-	                <span class="button"><g:actionSubmit class="submitbutton edit" value="Edit" /></span>
-	                <span class="button"><g:actionSubmit class="submitbutton delete" onclick="return confirm('Are you sure?');" value="Delete" /></span>
+	                <p><span class="button"><g:actionSubmit class="submitbutton" value="Edit" /></span>
+	                <span class="button"><g:actionSubmit class="submitbutton" onclick="return confirm('Are you sure?');" value="Delete" /></span>
+					<g:if test="${job.closed}">
+						<span class="button"><g:actionSubmit class="submitbutton" onclick="return confirm('Are you sure?');" value="Open" action="closeOpen" /></span>
+					</g:if>
+					<g:else>
+						<span class="button"><g:actionSubmit class="submitbutton" onclick="return confirm('Are you sure?');" value="Close" action="closeOpen" /></span>
+					</g:else>
 				</div>
 			</g:form>
 		</g:if>

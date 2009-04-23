@@ -10,10 +10,12 @@ class JobController {
 
     def list = {	
 	
-		params.max = 15
+		params.max   = 15
 		params.order = "desc"
+		params.sort  = "dateCreated"
+		params.cache = true
 	
-        [ jobs: Job.listOrderByDateCreated( params ) ]
+        [ jobs: Job.findAllByClosed( false, params ) ]
     }
 
     def show = {
@@ -168,6 +170,36 @@ class JobController {
 		
 		
 		render "Application cancelled."
+	}
+	
+	def closeOpen = {
+		def job = Job.get(params.id)
+		
+		def user = getLoggedUser()
+		
+		if(!job){
+			flash.message = "This job was deleted while you were trying to update. Please, refresh this page"
+			redirect(action: show, id: job.id)
+			return
+		}
+		
+		if(job.company != user){
+			flash.message = "You cannot close this job"
+			redirect(action: show, id: job.id)
+			return
+		}
+		
+		def closed = !job.closed
+		job.closed = closed
+		job.save()
+		
+		if(closed){
+			flash.message = "You closed the job."
+		} else {
+			flash.message = "You opened the job."
+		}
+		
+		redirect(action: show, id: job.id)
 	}
 	
 	def search = {

@@ -6,6 +6,7 @@ class Job {
 	
 	String title
 	String description
+	boolean closed = false
 	User company
 	Date dateCreated
 	
