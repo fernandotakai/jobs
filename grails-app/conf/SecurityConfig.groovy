@@ -10,10 +10,6 @@ security {
 	
 	useRequestMapDomainClass = false
 	
-	/**
-	 * if useRequestMapDomainClass is false, set request map pattern in string
-	 * see example below
-	 */
 	requestMapString = """
 		CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
 		PATTERN_TYPE_APACHE_ANT
@@ -22,6 +18,9 @@ security {
 		/job/create=ROLE_COMPANY
 		/job/save=ROLE_COMPANY
 		/job/apply/**=ROLE_EMPLOYEE
+		/job/cancel/**=ROLE_EMPLOYEE
+		/job/delete/**=ROLE_COMPANY
+		/job/closeOpen/**=ROLE_COMPANY
 		/profile/**=IS_AUTHENTICATED_FULLY
 		/**=IS_AUTHENTICATED_ANONYMOUSLY
 	"""
