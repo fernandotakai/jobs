@@ -131,6 +131,8 @@ class ProfileController {
 					}
 				}
 				profile.hasResume = (file.size > 0)
+			} else {
+				profile.properties = params
 			}
 			
 			user.properties = params['user']
