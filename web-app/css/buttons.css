@@ -1,7 +1,7 @@
 .submitbutton {
-	margin-left: 120px;
-	margin-top: 5px;
-	width: 90px;
+/*	margin-left: 120px;*/
+/*	margin-top: 5px;*/
+/*	width: 90px;*/
 }
 
 .buttons input {
@@ -11,8 +11,6 @@
     cursor: pointer;
     font-size: 10px;
     font-weight: bold;
-	margin-left: 120px;
-	margin-top: 5px;
 	width: 90px;
     overflow: visible;
     padding: 2px 6px;
