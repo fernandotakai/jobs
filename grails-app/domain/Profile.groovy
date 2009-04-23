@@ -6,7 +6,8 @@ class Profile {
 	String address
 	
 	static constraints = {
-		address maxSize:120
+		address maxSize:120, nullable: false, blank:false
+		phone nullable: false, blank:false
 	}
 	
 	static mapping = {

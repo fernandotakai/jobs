@@ -17,7 +17,7 @@
 		<div class="container">
 			<h1>Jobs</h1>
 			<div id="links" style="float: left">
-				<a href="${createLinkTo(url:'/')}">home</a> &nbsp;
+				<a href="${createLinkTo(url:'/')}">home</a>&nbsp;
 				<g:ifAnyGranted role="ROLE_COMPANY">
 					<g:link action="create" controller="job" >new job</g:link>
 				</g:ifAnyGranted>

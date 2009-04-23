@@ -34,6 +34,9 @@
 
 			<label for='email'>Email:</label>
 			<input type="text" name='email' value="${person?.email?.encodeAsHTML()}"/><br/>
+			
+			<label for='email'>Show Email:</label>
+			<g:checkBox name="emailShow" value="${person?.emailShow}" /><br/>
 
 			<label for="type">Type: </label><g:select name="type" from="${['Employee','Company']}" /><br/>
 

@@ -11,8 +11,9 @@ class JobController {
     def list = {	
 	
 		params.max = 15
+		params.order = "desc"
 	
-        [ jobs: Job.list( params ) ]
+        [ jobs: Job.listOrderByDateCreated( params ) ]
     }
 
     def show = {
@@ -34,9 +35,7 @@ class JobController {
     def delete = {
         def jobInstance = Job.get( params.id )
 
-		def user = getLoggedUser()
-		
-		if(jobInstance.company != user){
+		if(jobInstance.company != getLoggedUser()){
 			flash.message = "Oops, you cannot delete this job."
 			redirect(action:show,id:params.id)
 			return
@@ -66,17 +65,24 @@ class JobController {
             redirect(action:list)
         }
         else {
-            return [ jobInstance : jobInstance ]
+            return [ job : jobInstance ]
         }
     }
 
     def update = {
         def jobInstance = Job.get( params.id )
         if(jobInstance) {
+			
+			if(jobInstance.company != getLoggedUser()){
+				flash.message = "Oops, you cannot delete this job."
+				redirect(action:show,id:params.id)
+				return
+			}
+			
+	
             if(params.version) {
                 def version = params.version.toLong()
                 if(jobInstance.version > version) {
-                    
                     jobInstance.errors.rejectValue("version", "job.optimistic.locking.failure", "Another user has updated this Job while you were editing.")
                     render(view:'edit',model:[jobInstance:jobInstance])
                     return
@@ -143,12 +149,46 @@ class JobController {
 		}
 	}
 	
+	def cancel = {
+		def job = Job.get(params.id)
+		
+		def user = getLoggedUser()
+		
+		if(!job){
+			render "Could not find this job. Can you reload the page and see if it was deleted?"
+			return
+		}
+		
+		if(!job.appliers.contains(user)){
+			render "You never applied to this job."
+			return
+		}
+		
+		job.removeFromAppliers(user)
+		
+		
+		render "Application cancelled."
+	}
+	
 	def search = {
-		if(!params.q.trim()){
+		if(!params.q?.trim()){
 			return [:]
 		} else {
-			def result = Job.search(params.q, params)
-			return [ result: result.results, total: result.total ]
+			params.withHighlighter = { highlighter, index, sr ->
+				if (!sr.highlights) {
+	                sr.highlights = []
+	            }
+	
+				sr.highlights[index] = [
+					title: highlighter.fragment("title"),
+					description: highlighter.fragmentsWithSeparator("description")
+				]
+				
+			}
+//			params.suggestQuery = true
+			def a = Job.search(params.q, params)
+			println a
+			return [ searchResult: Job.search(params.q, params) ]
 		}
 	}
 	

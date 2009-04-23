@@ -1,0 +1,12 @@
+<ivy-module version="2.0">
+    <info organisation="org.example" module="vagas"/>
+    <configurations defaultconfmapping="build->default;compile->compile(*),master(*);test,runtime->runtime(*),master(*)">
+        <conf name="build"/>
+        <conf name="compile"/>
+        <conf name="test" extends="compile"/>
+        <conf name="runtime" extends="compile"/>
+    </configurations>
+    <dependencies>
+        <dependency org="mysql" name="mysql-connector-java" rev="5.1.6" conf="runtime"/>
+    </dependencies>
+</ivy-module>

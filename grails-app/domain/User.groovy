@@ -26,6 +26,7 @@ class User {
 		profile(nullable:true)
 		type(inList:['employee', 'company'])
 		enabled()
+		email(email:true)
 	}
 	
 	static mapping = {
