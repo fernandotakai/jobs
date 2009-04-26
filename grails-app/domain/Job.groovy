@@ -2,7 +2,7 @@ class Job {
 	
 	static hasMany = [appliers:User]
 	
-	static searchable = [only:['title', 'description'], spellCheck:'include']
+	static searchable = [only:['title', 'description', 'closed'], spellCheck:'include']
 	
 	String title
 	String description

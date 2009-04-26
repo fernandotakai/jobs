@@ -218,9 +218,7 @@ class JobController {
 				
 			}
 //			params.suggestQuery = true
-			def a = Job.search(params.q, params)
-			println a
-			return [ searchResult: Job.search(params.q, params) ]
+			return [ searchResult: Job.search(params.q + " && +closed:false", params) ]
 		}
 	}
 	
